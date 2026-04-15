@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Juu!</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Nunito (Clean) & Caveat (Handwritten/Playful) -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
@@ -130,15 +126,20 @@
         .game-item {
             position: absolute;
             cursor: pointer;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: cover;
-            border-radius: 8px; /* Optional: slight rounding for images */
+            border-radius: 8px;
             user-select: none;
             transition: transform 0.1s;
             animation: floatUp 4s linear infinite;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+        
+        @media (min-width: 768px) {
+            .game-item { width: 60px; height: 60px; }
+        }
+        
         .game-item:active { transform: scale(0.8); }
 
         @keyframes floatUp {
@@ -149,142 +150,124 @@
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 10px; }
     </style>
 </head>
-<body class="h-screen w-screen flex flex-col items-center justify-center relative p-4 md:p-8">
+<body class="h-screen w-screen flex flex-col items-center justify-center relative p-3 md:p-8">
 
-    <!-- Magical Background -->
     <div class="bg-shape shape-1"></div>
     <div class="bg-shape shape-2"></div>
     <div class="bg-shape shape-3"></div>
 
-    <!-- Main Content Area -->
-    <main class="w-full max-w-5xl h-[85vh] glass-card relative overflow-hidden flex flex-col mb-20 z-10">
+    <main class="w-full max-w-5xl h-[80vh] md:h-[85vh] glass-card relative overflow-hidden flex flex-col mb-24 md:mb-20 z-10">
         
-        <!-- HOME PAGE -->
-        <section id="home" class="page-content active flex-col items-center justify-center h-full w-full text-center p-8">
-            <h2 class="font-script text-4xl text-pink-500 mb-2">It's a special day...</h2>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-gray-800 mb-8 tracking-tight">
-                Happy Birthday, <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Juu!</span>
+        <section id="home" class="page-content active flex-col items-center justify-center h-full w-full text-center p-6 md:p-8">
+            <h2 class="font-script text-3xl md:text-4xl text-pink-500 mb-2">It's a special day...</h2>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-gray-800 mb-6 md:mb-8 tracking-tight leading-tight">
+                Happy Birthday,<br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Juu!</span>
             </h1>
             
-            <p class="text-lg text-gray-600 max-w-md mx-auto mb-12">
+            <p class="text-base md:text-lg text-gray-600 max-w-md mx-auto mb-10">
                 A little interactive card just for you. Tap the gift to start the celebration!
             </p>
 
-            <div id="home-gift" class="gift-box" onclick="openGift()">🎁</div>
-            <p id="gift-hint" class="mt-4 text-sm text-pink-400 font-bold animate-pulse uppercase tracking-widest">Tap to open</p>
+            <div id="home-gift" class="gift-box text-7xl md:text-8xl" onclick="openGift()">🎁</div>
+            <p id="gift-hint" class="mt-4 text-xs md:text-sm text-pink-400 font-bold animate-pulse uppercase tracking-widest">Tap to open</p>
         </section>
 
-        <!-- MESSAGE PAGE -->
-        <section id="message" class="page-content flex-col items-center justify-center h-full w-full p-6 md:p-12">
-            <div class="w-full max-w-2xl bg-[#fffcf5] p-8 md:p-12 rounded-xl shadow-inner border border-gray-100 relative">
-                <!-- Decorative Pin -->
+        <section id="message" class="page-content flex-col items-center justify-center h-full w-full p-4 md:p-12 overflow-y-auto">
+            <div class="w-full max-w-2xl bg-[#fffcf5] p-6 md:p-12 rounded-xl shadow-inner border border-gray-100 relative my-auto">
                 <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-pink-400 border-2 border-white shadow-md z-10"></div>
                 
-                <h3 class="font-script text-4xl text-pink-600 mb-6 border-b-2 border-pink-100 pb-2 flex justify-between items-center">
-                    <span>For Juu,</span>
-    
+                <h3 class="font-script text-3xl md:text-4xl text-pink-600 mb-4 md:mb-6 border-b-2 border-pink-100 pb-2">
+                    For Juu,
                 </h3>
                 
-                <!-- Editable Text Area -->
-                <div id="editable-message" contenteditable="true" class="text-xl leading-relaxed text-gray-700 font-script min-h-[200px] outline-none focus:bg-pink-50/50 p-4 -mx-4 rounded-lg transition-colors whitespace-pre-wrap">I wanted to make this year's BIRTHDAY something special So I tried this Cutie Pieeee!
-Wish you a HAPPIEST BIRTHDAYYYYYYYYYYY KANDHAMMAAAAAAAAA.!!!!!!!!!!! i thought at least e year elli erthiya birthday celebrate ge ankonde but kandha 😕..
-yaaavagluu happyyy erruuuu dont stop talkinggg maathaadthaa eru cutioo..!! nan kade indha aagiro yela bejaar gu sorry kandhamma and Thankkkkkk You Soooooo Mucchhhhhh For everythinggggg
+                <div class="text-lg md:text-xl leading-relaxed text-gray-700 font-script min-h-[150px] p-2 whitespace-pre-wrap overflow-y-auto max-h-[40vh] md:max-h-none">I wanted to make this year's BIRTHDAY something special So I tried this Cutie Pieeee!
 
-Have a great yearsssssss . Nan jothe ne eruu 🤭
-</div>
+Wish you a HAPPIEST BIRTHDAYYYYYYYYYYY KANDHAMMAAAAAAAAA.!!!!!!!!!!! I thought at least e year elli erthiya birthday celebrate ge ankonde but kandha 😕..  Nin jothe erodh nange thumba esta cutioo..
+
+neeen yaavaglu nagtha eru kandhamma ... I'll  always be with youuu muddhu maa , be happy eru yaaavagluu happyyy erruuuu dont stop talkinggg maathaadthaa eru cutioo..!! nan kade indha aagiro yela bejaar gu sorry kandhamma and Thankkkkkk You Soooooo Mucchhhhhh For everythinggggg
+
+Have a great yearsssssss . Nan jothe ne eruu 🤭 Neen andhre esta kandha.. sorry sometimes naan vichithra aadidhiniii but u have still stayed with meee!!!!!!!!! HAPPPYYY BIRTHDAYYY JUUUU... ಸಂತೋಷವಾಗಿರಿ, ಆರೋಗ್ಯವಾಗಿರಿ, ಶ್ರೀಮಂತರಾಗಿರಿ, ಹರ್ಷಚಿತ್ತದಿಂದಿರಿ... Neen ankondirodh yelaa agli expect one thingg.....ನನ್ನನ್ನೂ ಸೇರಿಸಿ ದೇವ್ರು ಓಲೆ ಬುದ್ಧಿ ವಿಧ್ಯಾ ಆಸ್ತಿ ಅಂತಸ್ತು ಕೊಡ್ಲಿ</div>
                 
-                <div class="mt-8 text-right font-script text-2xl text-pink-500">
+                <div class="mt-6 md:mt-8 text-right font-script text-xl md:text-2xl text-pink-500">
                     With love & best wishes! ✨
                 </div>
             </div>
         </section>
 
-        <!-- GALLERY PAGE -->
-        <section id="gallery" class="page-content flex-col w-full h-full p-8 pt-10">
-            <div class="text-center mb-8">
-                <h3 class="font-script text-5xl text-gray-800">Moments & Memories</h3>
-                <p class="text-gray-500 mt-2">A tiny scrapbook of good times.</p>
+        <section id="gallery" class="page-content flex-col w-full h-full p-6 md:p-8 pt-8">
+            <div class="text-center mb-6 md:mb-8">
+                <h3 class="font-script text-4xl md:text-5xl text-gray-800">Moments & Memories</h3>
+                <p class="text-gray-500 mt-2 text-sm md:text-base">A tiny scrapbook of good times.</p>
             </div>
             
-                       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 overflow-y-auto pb-20 px-4 items-center">
-                <!-- Polaroids -->
-                
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 overflow-y-auto pb-20 px-2 md:px-4 items-center">
                 <div class="polaroid">
                     <div class="w-full aspect-square bg-pink-100 flex items-center justify-center rounded mb-3 overflow-hidden">
-                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo1.jpg') -->
                         <img src="photo1.jpg" alt="Birthday Vibes" class="w-full h-full object-cover">
                     </div>
-                    <p class="font-script text-center text-xl text-gray-700">Birthday Vibes</p>
+                    <p class="font-script text-center text-lg md:text-xl text-gray-700">Birthday Vibes</p>
                 </div>
                 
                 <div class="polaroid">
                     <div class="w-full aspect-square bg-blue-100 flex items-center justify-center rounded mb-3 overflow-hidden">
-                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo2.jpg') -->
                         <img src="photo2.jpg" alt="Say Cheese!" class="w-full h-full object-cover">
                     </div>
-                    <p class="font-script text-center text-xl text-gray-700">Say Cheese!</p>
+                    <p class="font-script text-center text-lg md:text-xl text-gray-700">Say Cheese!</p>
                 </div>
                 
                 <div class="polaroid">
                     <div class="w-full aspect-square bg-yellow-100 flex items-center justify-center rounded mb-3 overflow-hidden">
-                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo3.jpg') -->
                         <img src="photo3.jpg" alt="Shining Star" class="w-full h-full object-cover">
                     </div>
-                    <p class="font-script text-center text-xl text-gray-700">Shining Star</p>
+                    <p class="font-script text-center text-lg md:text-xl text-gray-700">Shining Star</p>
                 </div>
                 
                 <div class="polaroid">
                     <div class="w-full aspect-square bg-green-100 flex items-center justify-center rounded mb-3 overflow-hidden">
-                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo4.jpg') -->
                         <img src="photo4.jpg" alt="Cheers!" class="w-full h-full object-cover">
                     </div>
-                    <p class="font-script text-center text-xl text-gray-700">Cheers!</p>
+                    <p class="font-script text-center text-lg md:text-xl text-gray-700">Cheers!</p>
                 </div>
-
             </div>
         </section>
 
-        <!-- FUN / GAME PAGE -->
-        <section id="game" class="page-content flex-col w-full h-full p-6 md:p-8">
-            <div class="flex justify-between items-center w-full mb-6">
-                <div>
-                    <h3 class="font-script text-4xl text-gray-800">Party Time!</h3>
-                    <p class="text-gray-500 text-sm">Pop the floating gifts & balloons</p>
+        <section id="game" class="page-content flex-col w-full h-full p-4 md:p-8">
+            <div class="flex flex-col md:flex-row justify-between items-center w-full mb-4 md:mb-6 gap-2">
+                <div class="text-center md:text-left">
+                    <h3 class="font-script text-3xl md:text-4xl text-gray-800">Party Time!</h3>
+                    <p class="text-gray-500 text-xs md:text-sm">Pop the floating gifts & balloons</p>
                 </div>
-                <div class="bg-pink-100 text-pink-600 px-6 py-2 rounded-full font-bold shadow-sm">
-                    Score: <span id="score" class="text-xl">0</span>
+                <div class="bg-pink-100 text-pink-600 px-4 py-1 md:px-6 md:py-2 rounded-full font-bold shadow-sm text-sm md:text-base">
+                    Score: <span id="score" class="text-lg md:text-xl">0</span>
                 </div>
             </div>
             
             <div id="game-board" class="flex-1 w-full bg-white/50 rounded-2xl border-2 border-dashed border-pink-200 relative overflow-hidden">
-                <div id="start-screen" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm">
-                    <i class="fa-solid fa-gift text-6xl text-pink-400 mb-4 animate-bounce"></i>
-                    <p class="font-bold text-gray-700 mb-6 text-xl">Pop 15 items to win a surprise!</p>
-                    <button onclick="startGame()" class="bg-gradient-to-r from-pink-500 to-orange-400 text-white px-8 py-3 rounded-full font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all">
+                <div id="start-screen" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm p-4 text-center">
+                    <i class="fa-solid fa-gift text-5xl md:text-6xl text-pink-400 mb-4 animate-bounce"></i>
+                    <p class="font-bold text-gray-700 mb-6 text-lg md:text-xl">Pop 15 items to win a surprise!</p>
+                    <button onclick="startGame()" class="bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 md:px-8 py-2 md:py-3 rounded-full font-bold text-base md:text-lg hover:shadow-lg transform hover:scale-105 transition-all">
                         Let's Play!
                     </button>
                 </div>
 
-                <div id="win-screen" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md hidden text-center p-4 md:p-6">
-                    <h2 class="font-script text-5xl md:text-6xl text-pink-500 mb-2">Woohoo!</h2>
-                    <p class="text-gray-600 text-lg mb-4">You unlocked your birthday surprise! 🎁</p>
+                <div id="win-screen" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md hidden text-center p-4">
+                    <h2 class="font-script text-4xl md:text-6xl text-pink-500 mb-2">Woohoo!</h2>
+                    <p class="text-gray-600 text-sm md:text-lg mb-4">You unlocked your birthday surprise! 🎁</p>
                     
-                    <!-- LOCAL VIDEO CONTAINER -->
-                    <div class="w-full max-w-xl aspect-video bg-black rounded-xl overflow-hidden mb-6 shadow-lg border-2 border-pink-100 relative shrink-0">
+                    <div class="w-full max-w-xl aspect-video bg-black rounded-xl overflow-hidden mb-4 md:mb-6 shadow-lg border-2 border-pink-100 relative shrink-0">
                         <video id="surprise-video" class="absolute top-0 left-0 w-full h-full object-cover" controls>
-                            <!-- PUT YOUR LOCAL VIDEO FILE NAME HERE: -->
-                            <!-- Change 'surprise.mp4' to the name of your video file -->
                             <source src="surprise.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
 
-                    <button onclick="resetGame()" class="border-2 border-pink-400 text-pink-500 px-6 py-2 rounded-full font-bold hover:bg-pink-50 transition-colors">
+                    <button onclick="resetGame()" class="border-2 border-pink-400 text-pink-500 px-4 md:px-6 py-1 md:py-2 rounded-full font-bold hover:bg-pink-50 transition-colors text-sm md:text-base">
                         Play Again
                     </button>
                 </div>
@@ -293,40 +276,34 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
 
     </main>
 
-    <!-- Floating Navigation Dock (Bottom) -->
-    <nav class="nav-dock fixed bottom-6 left-1/2 transform -translate-x-1/2 px-8 py-4 rounded-full flex gap-8 z-50">
+    <nav class="nav-dock fixed bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 px-4 md:px-8 py-3 md:py-4 rounded-full flex gap-4 md:gap-8 z-50 w-[90%] md:w-auto justify-around">
         <button onclick="navigate('home')" id="nav-home" class="nav-item active flex flex-col items-center relative group">
-            <i class="fa-solid fa-house text-xl mb-1 group-hover:scale-110 transition-transform"></i>
-            <span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+            <i class="fa-solid fa-house text-lg md:text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider">Home</span>
         </button>
         <button onclick="navigate('message')" id="nav-message" class="nav-item flex flex-col items-center relative group">
-            <i class="fa-solid fa-envelope-open-text text-xl mb-1 group-hover:scale-110 transition-transform"></i>
-            <span class="text-[10px] font-bold uppercase tracking-wider">Card</span>
+            <i class="fa-solid fa-envelope-open-text text-lg md:text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider">Card</span>
         </button>
         <button onclick="navigate('gallery')" id="nav-gallery" class="nav-item flex flex-col items-center relative group">
-            <i class="fa-solid fa-images text-xl mb-1 group-hover:scale-110 transition-transform"></i>
-            <span class="text-[10px] font-bold uppercase tracking-wider">Scrapbook</span>
+            <i class="fa-solid fa-images text-lg md:text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider">Gallery</span>
         </button>
         <button onclick="navigate('game')" id="nav-game" class="nav-item flex flex-col items-center relative group">
-            <i class="fa-solid fa-champagne-glasses text-xl mb-1 group-hover:scale-110 transition-transform"></i>
-            <span class="text-[10px] font-bold uppercase tracking-wider">Party</span>
+            <i class="fa-solid fa-champagne-glasses text-lg md:text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider">Party</span>
         </button>
     </nav>
 
-    <!-- JavaScript Logic -->
     <script>
         // --- Navigation Logic ---
         function navigate(pageId) {
-            // Hide all pages
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-            // Remove active state from nav
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-            // Show target
             const target = document.getElementById(pageId);
             if (target) target.classList.add('active');
             
-            // Highlight nav
             const nav = document.getElementById('nav-' + pageId);
             if (nav) nav.classList.add('active');
         }
@@ -342,11 +319,10 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
             
             gift.innerText = '🎉';
             gift.style.animation = 'none';
-            gift.style.transform = 'scale(1.3)';
+            gift.style.transform = 'scale(1.2)';
             hint.innerText = "Yay! Explore the tabs below!";
             hint.classList.remove('animate-pulse');
 
-            // Burst of confetti!
             confetti({
                 particleCount: 100,
                 spread: 70,
@@ -364,8 +340,6 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
         const winScreen = document.getElementById('win-screen');
         
         // ADD YOUR LOCAL IMAGE FILENAMES HERE:
-        // Put the images in the exact same folder as this HTML file.
-        // Replace 'image1.jpg' etc. with the actual names of your files.
         const partyItems = [
             'image1.jpg',
             'image2.jpg',
@@ -389,24 +363,18 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
             const item = document.createElement('img');
             item.className = 'game-item';
             item.src = partyItems[Math.floor(Math.random() * partyItems.length)];
-            item.draggable = false; // Prevents dragging the image by mistake
+            item.draggable = false; 
             
-            // Random horizontal position
             item.style.left = (Math.random() * 80 + 10) + '%';
-            // Start slightly below the board to float up
             item.style.top = '80%';
-            
-            // Randomize float speed
             item.style.animationDuration = `${Math.random() * 2 + 3}s`;
 
-            // Click to pop
             item.onclick = function() {
                 if(!gameActive) return;
                 
                 score++;
                 scoreDisplay.innerText = score;
                 
-                // Pop effect
                 this.style.transform = 'scale(1.5)';
                 this.style.opacity = '0';
                 setTimeout(() => this.remove(), 200);
@@ -415,14 +383,12 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
                     winGame();
                 } else {
                     setTimeout(spawnItem, 200);
-                    // Spawn a bonus item sometimes to make it fun
                     if(Math.random() > 0.5) setTimeout(spawnItem, 500);
                 }
             };
             
             board.appendChild(item);
 
-            // Remove item if it floats away unclicked
             setTimeout(() => {
                 if(item.parentNode && gameActive) {
                     item.style.opacity = '0';
@@ -438,13 +404,11 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
             gameActive = false;
             winScreen.classList.remove('hidden');
             
-            // Play local video
             const video = document.getElementById('surprise-video');
             if(video) {
                 video.play().catch(e => console.log("Auto-play blocked by browser. User must click play."));
             }
             
-            // Party Confetti
             var duration = 3000;
             var end = Date.now() + duration;
 
@@ -476,7 +440,6 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
             score = 0;
             scoreDisplay.innerText = score;
 
-            // Stop the local video if they play again
             const video = document.getElementById('surprise-video');
             if(video) {
                 video.pause();
@@ -485,4 +448,4 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭
         }
     </script>
 </body>
-</html> 
+</html>
