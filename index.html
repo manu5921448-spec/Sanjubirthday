@@ -177,15 +177,15 @@
             <p id="gift-hint" class="mt-4 text-xs md:text-sm text-pink-400 font-bold animate-pulse uppercase tracking-widest">Tap to open</p>
         </section>
 
-        <section id="message" class="page-content flex-col items-center justify-center h-full w-full p-4 md:p-12 overflow-y-auto">
-            <div class="w-full max-w-2xl bg-[#fffcf5] p-6 md:p-12 rounded-xl shadow-inner border border-gray-100 relative my-auto">
+        <section id="message" class="page-content flex-col items-center justify-start md:justify-center h-full w-full p-4 md:p-12 overflow-y-auto pb-28">
+            <div class="w-full max-w-2xl bg-[#fffcf5] p-6 md:p-12 rounded-xl shadow-inner border border-gray-100 relative mt-4 md:mt-0 flex flex-col max-h-full">
                 <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-pink-400 border-2 border-white shadow-md z-10"></div>
                 
-                <h3 class="font-script text-3xl md:text-4xl text-pink-600 mb-4 md:mb-6 border-b-2 border-pink-100 pb-2">
+                <h3 class="font-script text-3xl md:text-4xl text-pink-600 mb-4 md:mb-6 border-b-2 border-pink-100 pb-2 shrink-0">
                     For Juu,
                 </h3>
                 
-                <div class="text-lg md:text-xl leading-relaxed text-gray-700 font-script min-h-[150px] p-2 whitespace-pre-wrap overflow-y-auto max-h-[40vh] md:max-h-none">I wanted to make this year's BIRTHDAY something special So I tried this Cutie Pieeee!
+                <div class="text-lg md:text-xl leading-relaxed text-gray-700 font-script p-2 whitespace-pre-wrap overflow-y-auto flex-1">I wanted to make this year's BIRTHDAY something special So I tried this Cutie Pieeee!
 
 Wish you a HAPPIEST BIRTHDAYYYYYYYYYYY KANDHAMMAAAAAAAAA.!!!!!!!!!!! I thought at least e year elli erthiya birthday celebrate ge ankonde but kandha 😕..  Nin jothe erodh nange thumba esta cutioo..
 
@@ -193,7 +193,7 @@ neeen yaavaglu nagtha eru kandhamma ... I'll  always be with youuu muddhu maa , 
 
 Have a great yearsssssss . Nan jothe ne eruu 🤭 Neen andhre esta kandha.. sorry sometimes naan vichithra aadidhiniii but u have still stayed with meee!!!!!!!!! HAPPPYYY BIRTHDAYYY JUUUU... ಸಂತೋಷವಾಗಿರಿ, ಆರೋಗ್ಯವಾಗಿರಿ, ಶ್ರೀಮಂತರಾಗಿರಿ, ಹರ್ಷಚಿತ್ತದಿಂದಿರಿ... Neen ankondirodh yelaa agli expect one thingg.....ನನ್ನನ್ನೂ ಸೇರಿಸಿ ದೇವ್ರು ಓಲೆ ಬುದ್ಧಿ ವಿಧ್ಯಾ ಆಸ್ತಿ ಅಂತಸ್ತು ಕೊಡ್ಲಿ</div>
                 
-                <div class="mt-6 md:mt-8 text-right font-script text-xl md:text-2xl text-pink-500">
+                <div class="mt-6 md:mt-8 text-right font-script text-xl md:text-2xl text-pink-500 shrink-0 border-t-2 border-pink-50 pt-4">
                     With love & best wishes! ✨
                 </div>
             </div>
@@ -276,7 +276,7 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭 Neen andhre esta kandha.. sorr
 
     </main>
 
-    <nav class="nav-dock fixed bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 px-4 md:px-8 py-3 md:py-4 rounded-full flex gap-4 md:gap-8 z-50 w-[90%] md:w-auto justify-around">
+    <nav id="bottom-nav" class="nav-dock fixed bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 px-4 md:px-8 py-3 md:py-4 rounded-full flex gap-4 md:gap-8 z-50 w-[90%] md:w-auto justify-around opacity-0 translate-y-10 pointer-events-none transition-all duration-700 ease-out">
         <button onclick="navigate('home')" id="nav-home" class="nav-item active flex flex-col items-center relative group">
             <i class="fa-solid fa-house text-lg md:text-xl mb-1 group-hover:scale-110 transition-transform"></i>
             <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-wider">Home</span>
@@ -316,12 +316,17 @@ Have a great yearsssssss . Nan jothe ne eruu 🤭 Neen andhre esta kandha.. sorr
             
             const gift = document.getElementById('home-gift');
             const hint = document.getElementById('gift-hint');
+            const bottomNav = document.getElementById('bottom-nav');
             
             gift.innerText = '🎉';
             gift.style.animation = 'none';
             gift.style.transform = 'scale(1.2)';
             hint.innerText = "Yay! Explore the tabs below!";
             hint.classList.remove('animate-pulse');
+
+            // Slide up and reveal the navigation dock
+            bottomNav.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            bottomNav.classList.add('opacity-100', 'translate-y-0');
 
             confetti({
                 particleCount: 100,
