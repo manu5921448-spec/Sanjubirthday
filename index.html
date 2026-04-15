@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Juu!</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Nunito (Clean) & Caveat (Handwritten/Playful) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 50%, #fdf5e6 100%);
+            color: #4a4a4a;
+            overflow: hidden;
+        }
+
+        .font-script { font-family: 'Caveat', cursive; }
+
+        /* Floating background shapes for a magical feel */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        
+        .shape-1 { background: #ffb6c1; width: 40vw; height: 40vw; top: -10%; left: -10%; }
+        .shape-2 { background: #ffd700; width: 30vw; height: 30vw; bottom: 10%; right: -5%; animation-delay: -5s; }
+        .shape-3 { background: #dda0dd; width: 25vw; height: 25vw; top: 40%; left: 50%; animation-delay: -2s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Page Transitions */
+        .page-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        .page-content.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Soft Card Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border-radius: 2rem;
+        }
+
+        /* Floating Navigation Dock */
+        .nav-dock {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+        }
+
+        .nav-item {
+            color: #9ca3af;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            color: #db2777; /* Pink 600 */
+            transform: translateY(-5px);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #db2777;
+            border-radius: 50%;
+        }
+
+        /* Polaroid Gallery Style */
+        .polaroid {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: all 0.3s;
+        }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Interactive Gift on Home Screen */
+        .gift-box {
+            font-size: 6rem;
+            cursor: pointer;
+            animation: bounce 2s infinite ease-in-out;
+            transition: transform 0.2s;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+        .gift-box:hover { transform: scale(1.1); animation-play-state: paused; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Game Items */
+        .game-item {
+            position: absolute;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px; /* Optional: slight rounding for images */
+            user-select: none;
+            transition: transform 0.1s;
+            animation: floatUp 4s linear infinite;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .game-item:active { transform: scale(0.8); }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(15deg); opacity: 0; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fbcfe8; border-radius: 10px; }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col items-center justify-center relative p-4 md:p-8">
+
+    <!-- Magical Background -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <!-- Main Content Area -->
+    <main class="w-full max-w-5xl h-[85vh] glass-card relative overflow-hidden flex flex-col mb-20 z-10">
+        
+        <!-- HOME PAGE -->
+        <section id="home" class="page-content active flex-col items-center justify-center h-full w-full text-center p-8">
+            <h2 class="font-script text-4xl text-pink-500 mb-2">It's a special day...</h2>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-gray-800 mb-8 tracking-tight">
+                Happy Birthday, <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Juu!</span>
+            </h1>
+            
+            <p class="text-lg text-gray-600 max-w-md mx-auto mb-12">
+                A little interactive card just for you. Tap the gift to start the celebration!
+            </p>
+
+            <div id="home-gift" class="gift-box" onclick="openGift()">🎁</div>
+            <p id="gift-hint" class="mt-4 text-sm text-pink-400 font-bold animate-pulse uppercase tracking-widest">Tap to open</p>
+        </section>
+
+        <!-- MESSAGE PAGE -->
+        <section id="message" class="page-content flex-col items-center justify-center h-full w-full p-6 md:p-12">
+            <div class="w-full max-w-2xl bg-[#fffcf5] p-8 md:p-12 rounded-xl shadow-inner border border-gray-100 relative">
+                <!-- Decorative Pin -->
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-pink-400 border-2 border-white shadow-md z-10"></div>
+                
+                <h3 class="font-script text-4xl text-pink-600 mb-6 border-b-2 border-pink-100 pb-2 flex justify-between items-center">
+                    <span>For Juu,</span>
+    
+                </h3>
+                
+                <!-- Editable Text Area -->
+                <div id="editable-message" contenteditable="true" class="text-xl leading-relaxed text-gray-700 font-script min-h-[200px] outline-none focus:bg-pink-50/50 p-4 -mx-4 rounded-lg transition-colors whitespace-pre-wrap">I wanted to make this year's BIRTHDAY something special So I tried this Cutie Pieeee!
+Wish you a HAPPIEST BIRTHDAYYYYYYYYYYY KANDHAMMAAAAAAAAA.!!!!!!!!!!! i thought at least e year elli erthiya birthday celebrate ge ankonde but kandha 😕..
+yaaavagluu happyyy erruuuu dont stop talkinggg maathaadthaa eru cutioo..!! nan kade indha aagiro yela bejaar gu sorry kandhamma and Thankkkkkk You Soooooo Mucchhhhhh For everythinggggg
+
+Have a great yearsssssss . Nan jothe ne eruu 🤭
+</div>
+                
+                <div class="mt-8 text-right font-script text-2xl text-pink-500">
+                    With love & best wishes! ✨
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY PAGE -->
+        <section id="gallery" class="page-content flex-col w-full h-full p-8 pt-10">
+            <div class="text-center mb-8">
+                <h3 class="font-script text-5xl text-gray-800">Moments & Memories</h3>
+                <p class="text-gray-500 mt-2">A tiny scrapbook of good times.</p>
+            </div>
+            
+                       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 overflow-y-auto pb-20 px-4 items-center">
+                <!-- Polaroids -->
+                
+                <div class="polaroid">
+                    <div class="w-full aspect-square bg-pink-100 flex items-center justify-center rounded mb-3 overflow-hidden">
+                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo1.jpg') -->
+                        <img src="photo1.jpg" alt="Birthday Vibes" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-script text-center text-xl text-gray-700">Birthday Vibes</p>
+                </div>
+                
+                <div class="polaroid">
+                    <div class="w-full aspect-square bg-blue-100 flex items-center justify-center rounded mb-3 overflow-hidden">
+                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo2.jpg') -->
+                        <img src="photo2.jpg" alt="Say Cheese!" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-script text-center text-xl text-gray-700">Say Cheese!</p>
+                </div>
+                
+                <div class="polaroid">
+                    <div class="w-full aspect-square bg-yellow-100 flex items-center justify-center rounded mb-3 overflow-hidden">
+                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo3.jpg') -->
+                        <img src="photo3.jpg" alt="Shining Star" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-script text-center text-xl text-gray-700">Shining Star</p>
+                </div>
+                
+                <div class="polaroid">
+                    <div class="w-full aspect-square bg-green-100 flex items-center justify-center rounded mb-3 overflow-hidden">
+                        <!-- PUT YOUR IMAGE FILE NAME HERE (e.g., 'photo4.jpg') -->
+                        <img src="photo4.jpg" alt="Cheers!" class="w-full h-full object-cover">
+                    </div>
+                    <p class="font-script text-center text-xl text-gray-700">Cheers!</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FUN / GAME PAGE -->
+        <section id="game" class="page-content flex-col w-full h-full p-6 md:p-8">
+            <div class="flex justify-between items-center w-full mb-6">
+                <div>
+                    <h3 class="font-script text-4xl text-gray-800">Party Time!</h3>
+                    <p class="text-gray-500 text-sm">Pop the floating gifts & balloons</p>
+                </div>
+                <div class="bg-pink-100 text-pink-600 px-6 py-2 rounded-full font-bold shadow-sm">
+                    Score: <span id="score" class="text-xl">0</span>
+                </div>
+            </div>
+            
+            <div id="game-board" class="flex-1 w-full bg-white/50 rounded-2xl border-2 border-dashed border-pink-200 relative overflow-hidden">
+                <div id="start-screen" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm">
+                    <i class="fa-solid fa-gift text-6xl text-pink-400 mb-4 animate-bounce"></i>
+                    <p class="font-bold text-gray-700 mb-6 text-xl">Pop 15 items to win a surprise!</p>
+                    <button onclick="startGame()" class="bg-gradient-to-r from-pink-500 to-orange-400 text-white px-8 py-3 rounded-full font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all">
+                        Let's Play!
+                    </button>
+                </div>
+
+                <div id="win-screen" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md hidden text-center p-4 md:p-6">
+                    <h2 class="font-script text-5xl md:text-6xl text-pink-500 mb-2">Woohoo!</h2>
+                    <p class="text-gray-600 text-lg mb-4">You unlocked your birthday surprise! 🎁</p>
+                    
+                    <!-- LOCAL VIDEO CONTAINER -->
+                    <div class="w-full max-w-xl aspect-video bg-black rounded-xl overflow-hidden mb-6 shadow-lg border-2 border-pink-100 relative shrink-0">
+                        <video id="surprise-video" class="absolute top-0 left-0 w-full h-full object-cover" controls>
+                            <!-- PUT YOUR LOCAL VIDEO FILE NAME HERE: -->
+                            <!-- Change 'surprise.mp4' to the name of your video file -->
+                            <source src="surprise.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <button onclick="resetGame()" class="border-2 border-pink-400 text-pink-500 px-6 py-2 rounded-full font-bold hover:bg-pink-50 transition-colors">
+                        Play Again
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Navigation Dock (Bottom) -->
+    <nav class="nav-dock fixed bottom-6 left-1/2 transform -translate-x-1/2 px-8 py-4 rounded-full flex gap-8 z-50">
+        <button onclick="navigate('home')" id="nav-home" class="nav-item active flex flex-col items-center relative group">
+            <i class="fa-solid fa-house text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+        </button>
+        <button onclick="navigate('message')" id="nav-message" class="nav-item flex flex-col items-center relative group">
+            <i class="fa-solid fa-envelope-open-text text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[10px] font-bold uppercase tracking-wider">Card</span>
+        </button>
+        <button onclick="navigate('gallery')" id="nav-gallery" class="nav-item flex flex-col items-center relative group">
+            <i class="fa-solid fa-images text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[10px] font-bold uppercase tracking-wider">Scrapbook</span>
+        </button>
+        <button onclick="navigate('game')" id="nav-game" class="nav-item flex flex-col items-center relative group">
+            <i class="fa-solid fa-champagne-glasses text-xl mb-1 group-hover:scale-110 transition-transform"></i>
+            <span class="text-[10px] font-bold uppercase tracking-wider">Party</span>
+        </button>
+    </nav>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Navigation Logic ---
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            // Remove active state from nav
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            // Show target
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add('active');
+            
+            // Highlight nav
+            const nav = document.getElementById('nav-' + pageId);
+            if (nav) nav.classList.add('active');
+        }
+
+        // --- Home Page Gift Interaction ---
+        let giftOpened = false;
+        function openGift() {
+            if(giftOpened) return;
+            giftOpened = true;
+            
+            const gift = document.getElementById('home-gift');
+            const hint = document.getElementById('gift-hint');
+            
+            gift.innerText = '🎉';
+            gift.style.animation = 'none';
+            gift.style.transform = 'scale(1.3)';
+            hint.innerText = "Yay! Explore the tabs below!";
+            hint.classList.remove('animate-pulse');
+
+            // Burst of confetti!
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#f472b6', '#fb923c', '#fbbf24', '#60a5fa']
+            });
+        }
+
+        // --- Festive Game Logic ---
+        let score = 0;
+        let gameActive = false;
+        const board = document.getElementById('game-board');
+        const scoreDisplay = document.getElementById('score');
+        const startScreen = document.getElementById('start-screen');
+        const winScreen = document.getElementById('win-screen');
+        
+        // ADD YOUR LOCAL IMAGE FILENAMES HERE:
+        // Put the images in the exact same folder as this HTML file.
+        // Replace 'image1.jpg' etc. with the actual names of your files.
+        const partyItems = [
+            'image1.jpg',
+            'image2.jpg',
+            'image3.jpg',
+            'image4.jpg'
+        ];
+
+        function startGame() {
+            score = 0;
+            scoreDisplay.innerText = score;
+            gameActive = true;
+            startScreen.classList.add('hidden');
+            winScreen.classList.add('hidden');
+            document.querySelectorAll('.game-item').forEach(el => el.remove());
+            spawnItem();
+        }
+
+        function spawnItem() {
+            if(!gameActive) return;
+            
+            const item = document.createElement('img');
+            item.className = 'game-item';
+            item.src = partyItems[Math.floor(Math.random() * partyItems.length)];
+            item.draggable = false; // Prevents dragging the image by mistake
+            
+            // Random horizontal position
+            item.style.left = (Math.random() * 80 + 10) + '%';
+            // Start slightly below the board to float up
+            item.style.top = '80%';
+            
+            // Randomize float speed
+            item.style.animationDuration = `${Math.random() * 2 + 3}s`;
+
+            // Click to pop
+            item.onclick = function() {
+                if(!gameActive) return;
+                
+                score++;
+                scoreDisplay.innerText = score;
+                
+                // Pop effect
+                this.style.transform = 'scale(1.5)';
+                this.style.opacity = '0';
+                setTimeout(() => this.remove(), 200);
+
+                if(score >= 15) {
+                    winGame();
+                } else {
+                    setTimeout(spawnItem, 200);
+                    // Spawn a bonus item sometimes to make it fun
+                    if(Math.random() > 0.5) setTimeout(spawnItem, 500);
+                }
+            };
+            
+            board.appendChild(item);
+
+            // Remove item if it floats away unclicked
+            setTimeout(() => {
+                if(item.parentNode && gameActive) {
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.remove();
+                        if (gameActive) spawnItem();
+                    }, 300);
+                }
+            }, 4000);
+        }
+
+        function winGame() {
+            gameActive = false;
+            winScreen.classList.remove('hidden');
+            
+            // Play local video
+            const video = document.getElementById('surprise-video');
+            if(video) {
+                video.play().catch(e => console.log("Auto-play blocked by browser. User must click play."));
+            }
+            
+            // Party Confetti
+            var duration = 3000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#f472b6', '#fb923c', '#fbbf24']
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#f472b6', '#fb923c', '#fbbf24']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function resetGame() {
+            startScreen.classList.remove('hidden');
+            winScreen.classList.add('hidden');
+            score = 0;
+            scoreDisplay.innerText = score;
+
+            // Stop the local video if they play again
+            const video = document.getElementById('surprise-video');
+            if(video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+        }
+    </script>
+</body>
+</html> 
